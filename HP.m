@@ -1,4 +1,32 @@
+%% Copyright (c) 2019, XiaoweiGu
+%% All rights reserved. Please read the "license.txt" for license terms.
+%% The source code of the hierarchical prototype-based (HP) classifier.
+%% This work is described in:
+%==========================================================================================================
+%% Gu, X. and Ding, W.(2019). A hierarchical prototype-based approach for classification. 
+%% Information Sciences, vol.505, 325-351.
+%==========================================================================================================
+%% Please cite the paper above if this code helps.
+%% Programmed by Xiaowei Gu
+%% For any queries about the code, please contact Dr. Xiaowei Gu.
+%% x.gu3@lancaster.ac.uk
+ 
 function [Output]=HP(Input,Mode)
+%% Mode  The operating mode of the HP classifier
+%% Mode=='learning'  the HP Classifier learns from static data
+% Input.Data_Train        -   Training data
+% Input.Label_Train       -   Labels of the training data
+% Input.LayerNum          -   Layer number
+% Output.Syst             -   The trained HP classifier
+
+%% Mode=='testinga'  the HP Classifier conducts testing on validation data on Mode A (slower but more accuate)
+%% Mode=='testingb'  the HP Classifier conducts testing on validation data on Mode B (faster, more suitable for large-scale problems)
+%% Mode A and Mode B share the same inputs and outputs
+% Input.Syst              -   The trained HP classifier
+% Input.Data_Test         -   The validation data 
+% Output.Labels           -   Predicted label of validation data
+% Output.ConfidenceScores -   Level of confidence on the prediction
+
 if strcmp(Mode,'learning')==1
     Data_Train=Input.Data_Train;
     Label_Train=Input.Label_Train;
@@ -72,7 +100,7 @@ if strcmp(Mode,'learning')==1
     end
     Output.Syst.Param=Param1;
 end
-if strcmp(Mode,'testingB')==1
+if strcmp(Mode,'testingb')==1
     Data_Test=Input.Data_Test;
     Syst=Input.Syst;
     LayerNum=Syst.LayerNum;
@@ -91,11 +119,12 @@ if strcmp(Mode,'testingB')==1
             score(jj,ii)=a;
         end
     end
-    [~,q]=max(exp(-1*(score).^2),[],2);
+    score=exp(-1*(score).^2);
+    [~,q]=max(score,[],2);
     Output.ConfidenceScores=score;
     Output.Labels=Syst.Classes(q);
 end
-if strcmp(Mode,'testingA')==1
+if strcmp(Mode,'testinga')==1
     Data_Test=Input.Data_Test;
     Syst=Input.Syst;
     LayerNum=Syst.LayerNum;
@@ -116,7 +145,8 @@ if strcmp(Mode,'testingA')==1
             [score(jj,ii),~]=min(pdist2(data(jj,:),CT{ii}));
         end
     end
-    [~,q]=max(exp(-1*(score).^2),[],2);
+    score=exp(-1*(score).^2);
+    [~,q]=max(score,[],2);
     Output.ConfidenceScores=score;
     Output.Labels=Syst.Classes(q);
 end
