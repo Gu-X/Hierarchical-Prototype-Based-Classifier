@@ -1,5 +1,5 @@
 # Hierarchical-Prototype-Based-Classifier
-The source code for the research paper titled "A Hierarchical Prototype-Based Approach for Classification".
+The MATLAB pcode for the research paper titled "A Hierarchical Prototype-Based Approach for Classification".
 This work is described in:
 ===============================================================================================================================
 Gu, X. and Ding, W.(2019). A hierarchical prototype-based approach for classification. Information Sciences, vol.505, 325-351.
