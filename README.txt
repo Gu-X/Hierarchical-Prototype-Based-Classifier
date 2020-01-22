@@ -6,3 +6,4 @@ Gu, X. and Ding, W.(2019). A hierarchical prototype-based approach for classific
 ===============================================================================================================================
 Please cite the paper above if this code helps. 
 Programmed by Xiaowei Gu. For any queries about the code, please contact Dr. Xiaowei Gu: x.gu3@lancaster.ac.uk
+The source code will be released later.
